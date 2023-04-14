@@ -47,12 +47,8 @@ jobs:
       - name: Install packages via vcpkg
         run: |
           cd ./vcpkg
-          ./vcpkg install opencv[core,contrib,eigen,qt,openmp,freetype,jasper,tbb]:x64-windows
+          ./vcpkg install opencv[core,contrib,eigen,qt,openmp,freetype,jasper,tbb]:x64-windows --clean-buildtrees-after-build
           cd ..
-
-      - name: Cleanup buildtrees
-        run: |
-          rm -Recurse -Force ./vcpkg/buildtrees
 
       - name: Archive installed
         run: |
