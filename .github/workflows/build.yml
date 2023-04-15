@@ -53,7 +53,7 @@ jobs:
       - name: Install packages via vcpkg
         run: |
           cd C:/dev/vcpkg
-          ./vcpkg install opencv[core,contrib,eigen,qt,openmp,freetype,jasper,tbb]:x64-windows --clean-buildtrees-after-build
+          ./vcpkg install opencv[core,contrib,eigen,openmp,freetype,jasper,tbb]:x64-windows --clean-buildtrees-after-build
           cd -
 
       - name: Archive installed
