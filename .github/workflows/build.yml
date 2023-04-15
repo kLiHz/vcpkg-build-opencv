@@ -10,49 +10,55 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
+      - name: Make directory in drive C
+        run: |
+          mkdir C:/dev
+
       - name: Cache vcpkg
         id: cache-vcpkg
         uses: actions/cache@v3
         with:
           path: |
-            ./vcpkg
+            C:/dev/vcpkg
           key: ${{ runner.os }}-vcpkg
 
       - name: Install vcpkg
         if: steps.cache-vcpkg.outputs.cache-hit != 'true'
         run: |
+          cd C:/dev
           git clone https://github.com/Microsoft/vcpkg.git --depth=1
           ./vcpkg/bootstrap-vcpkg.bat
           ./vcpkg/vcpkg version
+          cd -
 
       - name: Update vcpkg
         if: steps.cache-vcpkg.outputs.cache-hit == 'true'
         run: |
-          cd ./vcpkg
+          cd C:/dev/vcpkg
           ./vcpkg version
           git pull
           ./bootstrap-vcpkg.bat
           ./vcpkg version
-          cd ..
+          cd -
 
       - name: Update packages
         if: steps.cache-vcpkg.outputs.cache-hit == 'true'
         run: |
-          cd ./vcpkg
+          cd C:/dev/vcpkg
           ./vcpkg update
           ./vcpkg upgrade
           ./vcpkg upgrade --no-dry-run
-          cd ..
+          cd -
 
       - name: Install packages via vcpkg
         run: |
-          cd ./vcpkg
+          cd C:/dev/vcpkg
           ./vcpkg install opencv[core,contrib,eigen,qt,openmp,freetype,jasper,tbb]:x64-windows --clean-buildtrees-after-build
-          cd ..
+          cd -
 
       - name: Archive installed
         run: |
-          7z a ./vcpkg-pkgs-windows.7z ./vcpkg/installed ./vcpkg/scripts
+          7z a ./vcpkg-pkgs-windows.7z C:/dev/vcpkg/installed C:/dev/vcpkg/scripts
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
@@ -63,4 +69,4 @@ jobs:
 
       - name: Cleanup installed
         run: |
-          rm -Recurse -Force ./vcpkg/installed
+          rm -Recurse -Force C:/dev/vcpkg/installed
