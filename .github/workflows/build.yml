@@ -66,7 +66,7 @@ jobs:
       - name: Install packages via vcpkg
         run: |
           cd C:/dev/vcpkg
-          ./vcpkg install opencv[core,contrib,eigen,openmp,freetype,jasper,tbb,ipp]:x64-windows --clean-after-build --binarysource=clear
+          ./vcpkg install opencv[core,contrib,eigen,openmp,freetype,jasper,tbb,ipp]:x64-windows --recurse --clean-after-build --binarysource=clear
           cd -
 
       - name: Archive installed
