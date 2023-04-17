@@ -45,4 +45,4 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release upload ${{ inputs.tag }} "vcpkg-pkgs-windows.7z#${{ inputs.notes }}"
+          gh release upload ${{ inputs.tag }} "vcpkg-pkgs-windows.7z#${{ inputs.asset_label }}"
