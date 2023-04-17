@@ -10,12 +10,9 @@ on:
       tag:
         description: Target release tag
         type: string
-      run_id:
-        description: Workflow run ID
+      artifact_id:
+        description: Artifact ID
         required: true
-      artifact_name:
-        default: vcpkg-pkgs-windows
-        type: string
       asset_label:
         type: string
 
@@ -32,11 +29,10 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Download previously artifact
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          run_id: ${{ inputs.run_id }}
-          name: vcpkg-pkgs-windows
+        run: |
+          curl -L "https://api.github.com/repos/${{ github.repository }}/actions/artifacts/${{ inputs.artifact_id }}/zip" -o artifact.zip -H "Authorization: Bearer ${{ secrets.MY_TOKEN }}"
+          7z x artifact.zip
+          rm artifact.zip
 
       - name: Temporarily resolve wrongly zipped artifacts
         run: |
