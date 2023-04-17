@@ -41,7 +41,8 @@ jobs:
 
       - name: Extract previously 'installed' files
         run: |
-          7z x ./vcpkg-pkgs-windows.7z -o'C:/dev/vcpkg/'
+          rm -Recurse -Force C:/dev/vcpkg/scripts
+          7z x ./vcpkg-pkgs-windows.7z -o'C:/dev/vcpkg/' -y
 
       - name: Update vcpkg
         if: steps.cache-vcpkg.outputs.cache-hit == 'true'
