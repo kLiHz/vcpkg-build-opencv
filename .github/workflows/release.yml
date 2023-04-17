@@ -36,9 +36,9 @@ jobs:
 
       - name: Temporarily resolve wrongly zipped artifacts
         run: |
-          7z x vcpkg-pkgs-windows.7z
+          7z x -mmt=4 vcpkg-pkgs-windows.7z
           rm vcpkg-pkgs-windows.7z
-          7z a vcpkg-pkgs-windows.7z ./vcpkg
+          7z a -mmt=4 vcpkg-pkgs-windows.7z ./vcpkg
 
       - name: Release using GitHub CLI
         shell: bash
