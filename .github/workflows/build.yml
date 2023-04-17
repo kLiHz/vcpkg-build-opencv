@@ -58,7 +58,7 @@ jobs:
 
       - name: Archive installed
         run: |
-          7z a ./vcpkg-pkgs-windows.7z C:/dev/vcpkg/installed C:/dev/vcpkg/scripts
+          7z a ./vcpkg-pkgs-windows.7z C:/dev/vcpkg
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
