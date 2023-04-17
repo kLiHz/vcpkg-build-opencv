@@ -31,6 +31,18 @@ jobs:
           ./vcpkg/vcpkg version
           cd -
 
+      - name: Download previously artifact
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          github_token: ${{secrets.MY_TOKEN}}
+          run_id: 4704916113
+          name: vcpkg-pkgs-windows
+
+      - name: Extract previously 'installed' files
+        run: |
+          7z x ./vcpkg-pkgs-windows.7z -o'C:/dev/vcpkg/'
+
       - name: Update vcpkg
         if: steps.cache-vcpkg.outputs.cache-hit == 'true'
         run: |
