@@ -33,7 +33,7 @@ jobs:
 
       - name: Download previously artifact
         id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
+        uses: dawidd6/action-download-artifact@v6
         with:
           github_token: ${{secrets.MY_TOKEN}}
           run_id: 4704916113
